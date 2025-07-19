@@ -16,7 +16,7 @@ app = FastAPI( title="Retaler API",
                 })
 
 app.middleware("http")(add_process_time_header)
-app.include_router(user_router, prefix="/users/v1", tags=["users"])
+app.include_router(user_router, prefix="/v1/users", tags=["users"])
 @app.get("/")
 async def read_root():
     return {"message": "Welcome to retaler"}

@@ -10,13 +10,14 @@ router = APIRouter()
 
 @router.post("/register", status_code=status.HTTP_201_CREATED)
 async def create_user(user: UserCreate, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
-    new_user = user_crud.create_user(db,user)
+    new_user = user_crud.create_user(db,user) 
     background_tasks.add_task(
         email_service.send_email,
         email=new_user.email,
         subject="Welcome to ReTaler",
         body=(
-            f"Hello {new_user.username},\n\n"
+            f"Hello {new_user.username}\n\n"
+            "Welcome to ReTaler),\n\n"
             "Thank you for registering with ReTaler! We're excited to have you on board.\n\n"
             "Best regards,\nReTaler Team"
         )
